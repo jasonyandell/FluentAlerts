@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using FluentAlerts.Extensions;
 using NUnit.Framework;
 using FluentAlerts;
 
@@ -13,7 +14,7 @@ namespace Tests.FluentAlerts
         public void WhenCreatedWithMessageStringThenInnerMessageIsString()
         {
             const string message = "asfasgasgdsghashas'";
-            var ex = new AlertException(message);
+            var ex = new FluentAlertException(message);
             //Validate message is serialized with new line
             Assert.AreEqual(message + Environment.NewLine, ex.Message);
         }
@@ -22,8 +23,8 @@ namespace Tests.FluentAlerts
         public void WhenCreatedWithMessageStringThenExceptionAlertIsTextBlockOfString()
         {
             const string message = "asfasgasgdsghashas'";
-            var ex = new AlertException(message);
-            var alert = ex.Alert as AlertTextBlock;
+            var ex = new FluentAlertException(message);
+            var alert = ex.Alert as FluentAlertTextBlock;
             Assert.IsNotNull(alert);
             Assert.AreEqual(message, alert.Text.ToString());
         }
@@ -32,7 +33,7 @@ namespace Tests.FluentAlerts
         public void WhenCreatedWithBuilderThenExceptionAlertIsBuilderToAlert()
         {
             var builder = BuilderFactory.CreateDocument("Test Title");
-            var ex = new AlertException(builder);
+            var ex = new FluentAlertException(builder);
             Assert.AreEqual(builder.ToAlert(), ex.Alert);
         }
 
@@ -40,7 +41,7 @@ namespace Tests.FluentAlerts
         public void WhenCreatedWithAlertThenInnerMessageIsAlertToText()
         {
             var alert = BuilderFactory.CreateDocument().ToAlert();
-            var ex = new AlertException(alert);
+            var ex = new FluentAlertException(alert);
             Assert.AreEqual(alert, ex.Alert);
         }
 
@@ -48,7 +49,7 @@ namespace Tests.FluentAlerts
         public void WhenCreatedWithAlertThenExceptionAlertIsAlert()
         {
             var alert = BuilderFactory.CreateDocument().ToAlert();
-            var ex = new AlertException(alert);
+            var ex = new FluentAlertException(alert);
             Assert.AreEqual(alert.ToText(), ex.Message);
         }
 
@@ -58,7 +59,7 @@ namespace Tests.FluentAlerts
         {
             const string message = "asfasgasgdsghashas'";
             var inner = Mother.GetNestedException(0);
-            var ex = new AlertException(message,inner);
+            var ex = new FluentAlertException(message,inner);
             //Validate message is serialized with new line
             Assert.AreEqual(message + Environment.NewLine, ex.Message);
             Assert.AreEqual(inner, ex.InnerException);
@@ -69,8 +70,8 @@ namespace Tests.FluentAlerts
         {
             const string message = "asfasgasgdsghashas'";
             var inner = Mother.GetNestedException(0);
-            var ex = new AlertException(message,inner);
-            var alert = ex.Alert as AlertTextBlock;
+            var ex = new FluentAlertException(message,inner);
+            var alert = ex.Alert as FluentAlertTextBlock;
             Assert.IsNotNull(alert);
             Assert.AreEqual(message, alert.Text.ToString());
             Assert.AreEqual(inner, ex.InnerException);
@@ -81,7 +82,7 @@ namespace Tests.FluentAlerts
         {
             var builder = BuilderFactory.CreateDocument("Test Title");
             var inner = Mother.GetNestedException(0);
-            var ex = new AlertException(builder,inner);
+            var ex = new FluentAlertException(builder,inner);
             Assert.AreEqual(builder.ToAlert(), ex.Alert);
             Assert.AreEqual(inner, ex.InnerException);
         }
@@ -91,7 +92,7 @@ namespace Tests.FluentAlerts
         {
             var alert = BuilderFactory.CreateDocument().ToAlert();
             var inner = Mother.GetNestedException(0);
-            var ex = new AlertException(alert,inner);
+            var ex = new FluentAlertException(alert,inner);
             Assert.AreEqual(alert, ex.Alert);
             Assert.AreEqual(inner, ex.InnerException);
         }
@@ -101,7 +102,7 @@ namespace Tests.FluentAlerts
         {
             var alert = BuilderFactory.CreateDocument().ToAlert();
             var inner = Mother.GetNestedException(0);
-            var ex = new AlertException(alert,inner);
+            var ex = new FluentAlertException(alert,inner);
             Assert.AreEqual(alert.ToText(), ex.Message);
             Assert.AreEqual(inner, ex.InnerException);
         }

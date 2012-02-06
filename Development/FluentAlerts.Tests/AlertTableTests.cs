@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Linq;
 using FluentAlerts;
+using FluentAlerts.Extensions;
 using NUnit.Framework;
 
 namespace Tests.FluentAlerts
@@ -21,11 +22,11 @@ namespace Tests.FluentAlerts
             Assert.IsInstanceOf<IAlertTableBuilder>(builder);
 
             var alert = builder.ToAlert();
-            Assert.IsInstanceOf<IAlert>(alert);
-            Assert.IsInstanceOf<AlertTable>(alert);
+            Assert.IsInstanceOf<IFluentAlert>(alert);
+            Assert.IsInstanceOf<FluentAlertTable>(alert);
 
 
-            var n = alert as AlertTable;
+            var n = alert as FluentAlertTable;
             Assert.IsNotNull(n);
             Assert.AreEqual(5, n.Rows.Count());
             
@@ -89,7 +90,7 @@ namespace Tests.FluentAlerts
             AssertIsTableForException(alert, ex);
 
             //Inner Exception
-            var innerTable = ExtractAndAssertValueFromTableRow<AlertTable>(alert, "InnerException");
+            var innerTable = ExtractAndAssertValueFromTableRow<FluentAlertTable>(alert, "InnerException");
             AssertIsTableForException(innerTable, ex.InnerException);
         }
         

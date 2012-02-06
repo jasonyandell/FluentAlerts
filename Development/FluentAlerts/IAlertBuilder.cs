@@ -2,6 +2,6 @@
 {
     public interface IAlertBuilder
     {
-        IAlert ToAlert();
+        IFluentAlert ToAlert();
     }
 }

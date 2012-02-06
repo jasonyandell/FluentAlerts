@@ -17,8 +17,8 @@ namespace FluentAlerts
 
     internal class AlertTableBuilder : IAlertTableBuilder
     {
-        private readonly AlertTable _table = new AlertTable();
-        public IAlert ToAlert() { return _table; }
+        private readonly FluentAlertTable _table = new FluentAlertTable();
+        public IFluentAlert ToAlert() { return _table; }
         public IAlertTableBuilder WithNumberOfColumns(int columns)
         {
             _table.ColumnCount = columns;
